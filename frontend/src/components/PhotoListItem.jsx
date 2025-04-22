@@ -1,20 +1,20 @@
 import "../styles/PhotoListItem.scss";
+import React from "react";
 
 const PhotoListItem = (props) => {
-  const { urls, user, location } = props.data;
   return (
-    <>
+    <React.Fragment key={props.id}>
       <div>
-        <img src={urls.full}></img>
+        <img src={props.urls.regular}></img>
       </div>
       <div>
-        <img src={user.profile}></img>
-        <p>{user.name}</p>
+        <img src={props.user.profile}></img>
+        <p>{props.user.name}</p>
         <p>
-          {location.city}, {location.country}
+          {props.location.city}, {props.location.country}
         </p>
       </div>
-    </>
+    </React.Fragment>
   );
 };
 
