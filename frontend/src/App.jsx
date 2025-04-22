@@ -19,10 +19,22 @@ const sampleDataForPhotoListItem = {
 };
 // Note: Rendering a single component to build components in isolation
 const App = () => {
-  const { urls, user, location, id } = sampleDataForPhotoListItem;
+  const photos = new Array(3).fill(null).map((_, i) => ({
+    ...sampleDataForPhotoListItem,
+    id: i + 1,
+  }));
+  sampleDataForPhotoListItem;
   return (
     <div className="App">
-      <PhotoListItem urls={urls} user={user} location={location} id={id} />
+      {photos.map((photo) => (
+        <PhotoListItem
+          key={photo.id}
+          id={photo.id}
+          urls={photo.urls}
+          user={photo.user}
+          location={photo.location}
+        />
+      ))}
     </div>
   );
 };
