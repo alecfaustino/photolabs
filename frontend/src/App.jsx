@@ -23,7 +23,6 @@ const App = () => {
     ...sampleDataForPhotoListItem,
     id: i + 1,
   }));
-  sampleDataForPhotoListItem;
   return (
     <div className="App">
       {photos.map((photo) => (
