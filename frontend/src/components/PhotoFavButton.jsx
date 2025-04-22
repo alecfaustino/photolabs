@@ -5,8 +5,7 @@ import { useState } from "react";
 const PhotoFavButton = () => {
   const [fav, setFav] = useState(false);
   const handleClick = () => {
-    console.log("clicked");
-    setFav(!fav ? true : false);
+    setFav(!fav);
   };
 
   return (
