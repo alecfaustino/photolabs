@@ -1,11 +1,15 @@
 import TopNavigation from "./TopNavigationBar";
 import PhotoList from "./PhotoList";
 
-const HomeRoute = ({ photos, topics }) => {
+const HomeRoute = ({ photos, topics, toggleFavorite, favorites }) => {
   return (
     <div className="home-route">
-      <TopNavigation topics={topics} />
-      <PhotoList photos={photos} />
+      <TopNavigation topics={topics} favorites={favorites} />
+      <PhotoList
+        photos={photos}
+        toggleFavorite={toggleFavorite}
+        favorites={favorites}
+      />
     </div>
   );
 };
