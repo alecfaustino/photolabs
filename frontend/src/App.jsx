@@ -7,14 +7,15 @@ import PhotoDetailsModal from "./routes/PhotoDetailsModal";
 
 const App = () => {
   const [favorites, setFavorites] = useState([]);
-  // toggleFavorite given a photoid,
-  // if it's part of the favorites list, remove,
-  // if it's not part of the favorites list, add
+
   const toggleFavorite = (photoId) => {
     if (favorites.includes(photoId)) {
+      // if it's part of the favorites list, remove,
       const newFavorites = [...favorites].filter((id) => id !== photoId);
+
       setFavorites(newFavorites);
     } else {
+      // if it's not part of the favorites list, add
       setFavorites((prev) => [...prev, photoId]);
     }
   };
