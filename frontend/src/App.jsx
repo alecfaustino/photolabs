@@ -1,5 +1,5 @@
 import "./App.scss";
-import HomeRoute from "./components/HomeRoute";
+import HomeRoute from "./routes/HomeRoute";
 import photos from "./mocks/photos";
 import topics from "./mocks/topics";
 import { useState } from "react";
@@ -20,8 +20,10 @@ const App = () => {
   };
 
   const [showModal, setShowModal] = useState(false);
-  const toggleModal = () => {
+  const [selectedPhoto, setSelectedPhoto] = useState(null);
+  const toggleModal = (photo) => {
     setShowModal(!showModal);
+    setSelectedPhoto(photo);
   };
 
   return (
@@ -33,8 +35,8 @@ const App = () => {
         favorites={favorites}
         toggleModal={toggleModal}
       />
-      {showModal && (
-        <PhotoDetailsModal photos={photos} toggleModal={toggleModal} />
+      {showModal && selectedPhoto && (
+        <PhotoDetailsModal photo={selectedPhoto} toggleModal={toggleModal} />
       )}
     </div>
   );
