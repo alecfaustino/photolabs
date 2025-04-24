@@ -3,7 +3,12 @@ import closeSymbol from "../assets/closeSymbol.svg";
 import PhotoList from "../components/PhotoList";
 import PhotoFavButton from "../components/PhotoFavButton";
 
-const PhotoDetailsModal = ({ toggleModal, photo }) => {
+const PhotoDetailsModal = ({
+  toggleModal,
+  photo,
+  toggleFavorite,
+  favorites,
+}) => {
   // the data file has similar photos has objects
   // change to array
   const similarPhotosArray = Object.values(photo.similar_photos);
@@ -17,7 +22,11 @@ const PhotoDetailsModal = ({ toggleModal, photo }) => {
       </button>
       {/* Main Image */}
       <div className="photo-details-modal__images">
-        <PhotoFavButton />
+        <PhotoFavButton
+          toggleFavorite={toggleFavorite}
+          photoId={photo.id}
+          favorites={favorites}
+        />
         <img className="photo-details-modal__image" src={photo.urls.full} />
         {/* Photographer Info */}
         <div className="photo-details-modal__photographer-details">
@@ -34,7 +43,11 @@ const PhotoDetailsModal = ({ toggleModal, photo }) => {
         </div>
         {/* Similar Photos Heading */}
         <div className="photo-details-modal__header">Similar Photos</div>
-        <PhotoList photos={similarPhotosArray} />
+        <PhotoList
+          photos={similarPhotosArray}
+          toggleFavorite={toggleFavorite}
+          favorites={favorites}
+        />
       </div>
     </div>
   );

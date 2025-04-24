@@ -14,6 +14,7 @@ const PhotoListItem = ({ photo, toggleFavorite, favorites, toggleModal }) => {
           onClick={() => toggleModal(photo)}
           className="photo-list__image"
           src={photo.urls.regular}></img>
+        {/* Photographer info */}
         <div className="photo-list__user-details">
           <img
             className="photo-list__user-profile"

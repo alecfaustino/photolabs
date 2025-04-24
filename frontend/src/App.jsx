@@ -37,7 +37,12 @@ const App = () => {
         toggleModal={toggleModal}
       />
       {showModal && selectedPhoto && (
-        <PhotoDetailsModal photo={selectedPhoto} toggleModal={toggleModal} />
+        <PhotoDetailsModal
+          photo={selectedPhoto}
+          toggleModal={toggleModal}
+          toggleFavorite={toggleFavorite}
+          favorites={favorites}
+        />
       )}
     </div>
   );
