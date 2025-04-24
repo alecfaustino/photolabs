@@ -21,7 +21,7 @@ const App = () => {
 
   const [showModal, setShowModal] = useState(false);
   const toggleModal = () => {
-    setShowModal(true);
+    setShowModal(!showModal);
   };
 
   return (
@@ -33,7 +33,9 @@ const App = () => {
         favorites={favorites}
         toggleModal={toggleModal}
       />
-      {showModal && <PhotoDetailsModal photos={photos} />}
+      {showModal && (
+        <PhotoDetailsModal photos={photos} toggleModal={toggleModal} />
+      )}
     </div>
   );
 };
