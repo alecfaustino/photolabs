@@ -1,48 +1,52 @@
-import { useState } from "react";
+import { useReducer } from "react";
+import { ACTIONS, reducer } from "./applicatoinDataReducers";
 
 const useApplicationData = () => {
-  const [favorites, setFavorites] = useState([]);
-  const [showModal, setShowModal] = useState(false);
-  const [selectedPhoto, setSelectedPhoto] = useState(null);
-  const [topic, setTopic] = useState(null);
+
+  const initialState = {
+    favorites: [],
+    photos: [],
+    topic: [],
+    selectedPhoto: null,
+    showModal: false
+  };
+
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   const updateToFavPhotoIds = photoId => {
-    if (favorites.includes(photoId)) {
-      // if it's part of the favorites list, remove,
-      const newFavorites = [...favorites].filter((id) => id !== photoId);
-      setFavorites(newFavorites);
+    if (state.favorites.includes(photoId)) {
+      // if it is in the array, remove it
+      dispatch({ type: ACTIONS.FAV_PHOTO_REMOVED, photoId });
     } else {
-      // if it's not part of the favorites list, add
-      setFavorites((prev) => [...prev, photoId]);
+      // if it is not, add it
+      dispatch({ type: ACTIONS.FAV_PHOTO_ADDED, photoId });
     }
   };
+
   const onPhotoSelect = photo => {
-    setSelectedPhoto(photo);
-    setShowModal(true);
-  }
-  
+    dispatch({ type: ACTIONS.SELECT_PHOTO, photo });
+  };
+
   const onClosePhotoDetailsModal = () => {
-    setShowModal(false);
-    setSelectedPhoto(null);
-  }
-  
-  const onLoadTopic = (newTopic) => {
-    setTopic(newTopic);
-  }
+    dispatch({ type: ACTIONS.DISPLAY_PHOTO_DETAILS, showModal: false });
+  };
+
+  const onLoadTopic = topic => {
+    dispatch({ type: ACTIONS.SET_TOPIC_DATA, topic });
+  };
+
+  const setPhotoData = photos => {
+    dispatch({ type: ACTIONS.SET_PHOTO_DATA, photos });
+  };
 
   return {
-    state: {
-      favorites,
-      showModal,
-      selectedPhoto,
-      topic,
-    },
+    state,
     updateToFavPhotoIds,
     onPhotoSelect,
     onClosePhotoDetailsModal,
-    onLoadTopic
-  }
+    onLoadTopic,
+    setPhotoData
+  };
 };
 
 export default useApplicationData;
-
