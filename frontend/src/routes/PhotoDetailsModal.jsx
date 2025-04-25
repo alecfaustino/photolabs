@@ -4,10 +4,10 @@ import PhotoList from "../components/PhotoList";
 import PhotoFavButton from "../components/PhotoFavButton";
 
 const PhotoDetailsModal = ({
-  toggleModal,
-  photo,
-  toggleFavorite,
   favorites,
+  photo,
+  updateToFavPhotoIds,
+  onClosePhotoDetailsModal,
 }) => {
   // the data file has similar photos has objects
   // change to array
@@ -16,14 +16,14 @@ const PhotoDetailsModal = ({
     <div className="photo-details-modal">
       {/* close button */}
       <button
-        onClick={toggleModal}
+        onClick={onClosePhotoDetailsModal}
         className="photo-details-modal__close-button">
         <img src={closeSymbol} alt="close symbol" />
       </button>
       {/* Main Image */}
       <div className="photo-details-modal__images">
         <PhotoFavButton
-          toggleFavorite={toggleFavorite}
+          updateToFavPhotoIds={updateToFavPhotoIds}
           photoId={photo.id}
           favorites={favorites}
         />
@@ -45,7 +45,7 @@ const PhotoDetailsModal = ({
         <div className="photo-details-modal__header">Similar Photos</div>
         <PhotoList
           photos={similarPhotosArray}
-          toggleFavorite={toggleFavorite}
+          updateToFavPhotoIds={updateToFavPhotoIds}
           favorites={favorites}
         />
       </div>

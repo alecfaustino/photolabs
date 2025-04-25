@@ -4,18 +4,19 @@ import PhotoList from "../components/PhotoList";
 const HomeRoute = ({
   photos,
   topics,
-  toggleFavorite,
   favorites,
-  toggleModal,
+  updateToFavPhotoIds,
+  onPhotoSelect,
+  onLoadTopic,
 }) => {
   return (
     <div className="home-route">
       <TopNavigation topics={topics} favorites={favorites} />
       <PhotoList
         photos={photos}
-        toggleFavorite={toggleFavorite}
         favorites={favorites}
-        toggleModal={toggleModal}
+        updateToFavPhotoIds={updateToFavPhotoIds}
+        onPhotoSelect={onPhotoSelect}
       />
     </div>
   );

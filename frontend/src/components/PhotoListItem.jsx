@@ -1,17 +1,22 @@
 import "../styles/PhotoListItem.scss";
 import PhotoFavButton from "./PhotoFavButton";
 
-const PhotoListItem = ({ photo, toggleFavorite, favorites, toggleModal }) => {
+const PhotoListItem = ({
+  photo,
+  updateToFavPhotoIds,
+  favorites,
+  onPhotoSelect,
+}) => {
   return (
     <>
       <div className="photo-list__item">
         <PhotoFavButton
-          toggleFavorite={toggleFavorite}
+          updateToFavPhotoIds={updateToFavPhotoIds}
           photoId={photo.id}
           favorites={favorites}
         />
         <img
-          onClick={() => toggleModal(photo)}
+          onClick={() => onPhotoSelect(photo)}
           className="photo-list__image"
           src={photo.urls.regular}></img>
         {/* Photographer info */}
