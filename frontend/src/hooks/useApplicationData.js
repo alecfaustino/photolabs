@@ -14,15 +14,15 @@ const useApplicationData = () => {
 
   const [state, dispatch] = useReducer(reducer, initialState);
 
+  // fetch photos on initial render
   useEffect(() => {
     fetch('http://localhost:8001/api/photos')
       .then(res => res.json())
-      .then(data => {
-        // console.log(data);
-        dispatch({type: ACTIONS.SET_PHOTO_DATA, payload: data})})
+      .then(data => dispatch({type: ACTIONS.SET_PHOTO_DATA, payload: data}))
       .catch(error => console.error('Fetch error:', error));
   }, []);
 
+  // fetch topics on initial render
   useEffect(() => {
     fetch('http://localhost:8001/api/topics')
       .then(res => res.json())
@@ -30,6 +30,7 @@ const useApplicationData = () => {
       .catch(error => console.error('Fetch error:', error));
   }, []);
 
+  // fetch photos of a topic when the selectedTopic state changes
   useEffect(() => {
     if (state.selectedTopic && state.selectedTopic.id) {
       fetch(`http://localhost:8001/api/topics/${state.selectedTopic.id}/photos`)
@@ -39,6 +40,7 @@ const useApplicationData = () => {
     }
   }, [state.selectedTopic]);
   
+  //handling clicking fav
   const updateToFavPhotoIds = photoId => {
     if (state.favorites.includes(photoId)) {
       // if it is in the array, remove it
@@ -49,20 +51,13 @@ const useApplicationData = () => {
     }
   };
   
+  // opening the modal
   const onPhotoSelect = photo => {
     dispatch({ type: ACTIONS.SELECT_PHOTO, payload: photo });
   };
   
   const onClosePhotoDetailsModal = () => {
-    dispatch({ type: ACTIONS.DISPLAY_PHOTO_DETAILS, showModal: false });
-  };
-  
-  const onLoadTopic = topic => {
-    dispatch({ type: ACTIONS.SET_TOPIC_DATA, payload: topic });
-  };
-  
-  const setPhotoData = photos => {
-    dispatch({ type: ACTIONS.SET_PHOTO_DATA, photos });
+    dispatch({ type: ACTIONS.CLOSE_PHOTO_DETAILS, showModal: false });
   };
   
   const onTopicSelect = (topic) => {
@@ -81,8 +76,6 @@ const useApplicationData = () => {
     updateToFavPhotoIds,
     onPhotoSelect,
     onClosePhotoDetailsModal,
-    onLoadTopic,
-    setPhotoData,
     onTopicSelect
   };
 };

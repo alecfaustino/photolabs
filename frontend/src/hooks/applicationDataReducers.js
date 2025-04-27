@@ -42,7 +42,7 @@ export function reducer(state, action) {
         selectedPhoto: action.payload,
         showModal: true
       }
-    case ACTIONS.DISPLAY_PHOTO_DETAILS: 
+    case ACTIONS.CLOSE_PHOTO_DETAILS: 
       return {
         ...state,
         showModal: action.showModal,
