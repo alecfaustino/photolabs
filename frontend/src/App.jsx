@@ -26,7 +26,7 @@ const App = () => {
       />
       {showModal && selectedPhoto && (
         <PhotoDetailsModal
-          photo={state.photoData}
+          photo={state.selectedPhoto}
           favorites={favorites}
           onPhotoSelect={onPhotoSelect}
           onClosePhotoDetailsModal={onClosePhotoDetailsModal}

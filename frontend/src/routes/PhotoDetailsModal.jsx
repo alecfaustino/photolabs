@@ -9,8 +9,6 @@ const PhotoDetailsModal = ({
   updateToFavPhotoIds,
   onClosePhotoDetailsModal,
 }) => {
-  // the data file has similar photos has objects
-  // change to array
   return (
     <div className="photo-details-modal">
       {/* close button */}
@@ -43,7 +41,7 @@ const PhotoDetailsModal = ({
         {/* Similar Photos Heading */}
         <div className="photo-details-modal__header">Similar Photos</div>
         <PhotoList
-          photos={photos}
+          photos={photo.similar_photos}
           updateToFavPhotoIds={updateToFavPhotoIds}
           favorites={favorites}
         />

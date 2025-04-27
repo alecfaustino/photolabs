@@ -16,7 +16,9 @@ const useApplicationData = () => {
   useEffect(() => {
     fetch('http://localhost:8001/api/photos')
       .then(res => res.json())
-      .then(data => dispatch({type: ACTIONS.SET_PHOTO_DATA, payload: data}))
+      .then(data => {
+        // console.log(data);
+        dispatch({type: ACTIONS.SET_PHOTO_DATA, payload: data})})
       .catch(error => console.error('Fetch error:', error));
   }, []);
 
