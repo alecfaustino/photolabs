@@ -1,10 +1,17 @@
 export const ACTIONS = {
+  // handling favorites state
   FAV_PHOTO_ADDED: 'FAV_PHOTO_ADDED',
   FAV_PHOTO_REMOVED: 'FAV_PHOTO_REMOVED',
+  // fetch the photos (both initial render and topic render)
   SET_PHOTO_DATA: 'SET_PHOTO_DATA',
+  // fetch the topics to map into top nav
   SET_TOPIC_DATA: 'SET_TOPIC_DATA',
+  // handling selectedTopic state
+  SET_SELECTED_TOPIC: 'SET_SELECTED_TOPIC',
+  // selectedPhoto for the modal
   SELECT_PHOTO: 'SELECT_PHOTO',
   DISPLAY_PHOTO_DETAILS: 'DISPLAY_PHOTO_DETAILS',
+  GET_PHOTOS_BY_TOPICS: 'GET_PHOTOS_BY_TOPICS'
 }; 
 
 export function reducer(state, action) {
@@ -41,6 +48,16 @@ export function reducer(state, action) {
         showModal: action.showModal,
         selectedPhoto: null
       }
+    case ACTIONS.GET_PHOTOS_BY_TOPICS:
+      return {
+        ...state,
+        photoData: action.payload
+      }
+    case ACTIONS.SET_SELECTED_TOPIC: 
+      return {
+        ...state, 
+        selectedTopic: action.payload // Only update selectedTopic
+      };
     
     default:
       throw new Error(

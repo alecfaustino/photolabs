@@ -8,7 +8,8 @@ const useApplicationData = () => {
     selectedPhoto: null,
     showModal: false,
     photoData: [],
-    topicData: []
+    topicData: [],
+    selectedTopic: null
   };
 
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -28,6 +29,15 @@ const useApplicationData = () => {
       .then(data => dispatch({type: ACTIONS.SET_TOPIC_DATA, payload: data}))
       .catch(error => console.error('Fetch error:', error));
   }, []);
+
+  useEffect(() => {
+    if (state.selectedTopic && state.selectedTopic.id) {
+      fetch(`http://localhost:8001/api/topics/${state.selectedTopic.id}/photos`)
+        .then(res => res.json())
+        .then(data => dispatch({ type: ACTIONS.GET_PHOTOS_BY_TOPICS, payload: data }))
+        .catch(error => console.error('Fetch error:', error));
+    }
+  }, [state.selectedTopic]);
   
   const updateToFavPhotoIds = photoId => {
     if (state.favorites.includes(photoId)) {
@@ -48,11 +58,21 @@ const useApplicationData = () => {
   };
   
   const onLoadTopic = topic => {
-    dispatch({ type: ACTIONS.SET_TOPIC_DATA, topic });
+    dispatch({ type: ACTIONS.SET_TOPIC_DATA, payload: topic });
   };
   
   const setPhotoData = photos => {
     dispatch({ type: ACTIONS.SET_PHOTO_DATA, photos });
+  };
+  
+  const onTopicSelect = (topic) => {
+    // update selectedTopic
+    dispatch({ type: ACTIONS.SET_SELECTED_TOPIC, payload: topic });
+    // Fetch photos for that topic
+    fetch(`http://localhost:8001/api/topics/${topic.id}/photos`)
+      .then(res => res.json())
+      .then(data => dispatch({ type: ACTIONS.GET_PHOTOS_BY_TOPICS, payload: data }))
+      .catch(error => console.error('Fetch error:', error));
   };
 
 
@@ -62,7 +82,8 @@ const useApplicationData = () => {
     onPhotoSelect,
     onClosePhotoDetailsModal,
     onLoadTopic,
-    setPhotoData
+    setPhotoData,
+    onTopicSelect
   };
 };
 
