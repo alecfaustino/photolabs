@@ -58,6 +58,11 @@ export function reducer(state, action) {
         ...state, 
         selectedTopic: action.payload // Only update selectedTopic
       }
+    case ACTIONS.RESET_SELECTED_TOPIC: 
+      return {
+        ...state,
+        selectedTopic: null,
+      }
     default:
       throw new Error(
         `Tried to reduce with unsupported action type: ${action.type}`

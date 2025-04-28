@@ -66,12 +66,19 @@ const useApplicationData = () => {
     }
   }, [state.selectedTopic]);
 
+  const onDisplayFavorites = (favoritePhotos) => {
+    dispatch({ type: ACTIONS.RESET_SELECTED_TOPIC })
+
+    dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: favoritePhotos});
+  }
+
   return {
     state,
     updateToFavPhotoIds,
     onPhotoSelect,
     onClosePhotoDetailsModal,
-    onTopicSelect
+    onTopicSelect,
+    onDisplayFavorites
   };
 };
 
