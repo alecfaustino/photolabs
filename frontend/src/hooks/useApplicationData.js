@@ -14,7 +14,9 @@ const useApplicationData = () => {
 
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  // fetch photos on initial render
+  /**
+   * fetch photos on initial render
+   */
   useEffect(() => {
     fetch('/api/photos')
       .then(res => res.json())
@@ -22,7 +24,9 @@ const useApplicationData = () => {
       .catch(error => console.error('Fetch error:', error));
   }, []);
 
-  // fetch topics on initial render
+  /**
+   * fetch topics on initial render
+   */
   useEffect(() => {
     fetch('/api/topics')
       .then(res => res.json())
@@ -31,7 +35,10 @@ const useApplicationData = () => {
   }, []);
 
   
-  //handling clicking fav
+  /**
+   * 
+   * @param {*} photoId - the key of the photo selected(it's photo ID)
+   */
   const updateToFavPhotoIds = photoId => {
     if (state.favorites.includes(photoId)) {
       // if it is in the array, remove it
@@ -42,7 +49,10 @@ const useApplicationData = () => {
     }
   };
   
-  // opening the modal
+  /**
+   * opens the modal
+   * @param {*} photo - a single photo object from photoData array
+   */
   const onPhotoSelect = photo => {
     dispatch({ type: ACTIONS.SELECT_PHOTO, payload: photo });
   };
@@ -51,13 +61,22 @@ const useApplicationData = () => {
     dispatch({ type: ACTIONS.CLOSE_PHOTO_DETAILS, showModal: false });
   };
   
+  /**
+   * 
+   * @param {*} topic - a single topic object from the topicData array
+   */
   const onTopicSelect = (topic) => {
     // update selectedTopic
     dispatch({ type: ACTIONS.SET_SELECTED_TOPIC, payload: topic });
   };
   
-  // fetch photos of a topic when the selectedTopic state changes
+  /**
+   * fetch photos for a given topic selected
+   * selectedTopic is set with onTopicSelect function 
+   * re-render each time the selectedTopic state is updated. 
+   */
   useEffect(() => {
+    // confirm that there is a selected topic and a topic id
     if (state.selectedTopic && state.selectedTopic.id) {
       fetch(`/api/topics/${state.selectedTopic.id}/photos`)
         .then(res => res.json())
