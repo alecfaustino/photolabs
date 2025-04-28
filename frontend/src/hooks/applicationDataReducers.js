@@ -57,8 +57,7 @@ export function reducer(state, action) {
       return {
         ...state, 
         selectedTopic: action.payload // Only update selectedTopic
-      };
-    
+      }
     default:
       throw new Error(
         `Tried to reduce with unsupported action type: ${action.type}`
