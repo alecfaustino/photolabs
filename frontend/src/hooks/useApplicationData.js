@@ -30,15 +30,6 @@ const useApplicationData = () => {
       .catch(error => console.error('Fetch error:', error));
   }, []);
 
-  // fetch photos of a topic when the selectedTopic state changes
-  useEffect(() => {
-    if (state.selectedTopic && state.selectedTopic.id) {
-      fetch(`http://localhost:8001/api/topics/${state.selectedTopic.id}/photos`)
-        .then(res => res.json())
-        .then(data => dispatch({ type: ACTIONS.GET_PHOTOS_BY_TOPICS, payload: data }))
-        .catch(error => console.error('Fetch error:', error));
-    }
-  }, [state.selectedTopic]);
   
   //handling clicking fav
   const updateToFavPhotoIds = photoId => {
@@ -63,13 +54,17 @@ const useApplicationData = () => {
   const onTopicSelect = (topic) => {
     // update selectedTopic
     dispatch({ type: ACTIONS.SET_SELECTED_TOPIC, payload: topic });
-    // Fetch photos for that topic
-    fetch(`http://localhost:8001/api/topics/${topic.id}/photos`)
-      .then(res => res.json())
-      .then(data => dispatch({ type: ACTIONS.GET_PHOTOS_BY_TOPICS, payload: data }))
-      .catch(error => console.error('Fetch error:', error));
   };
-
+  
+  // fetch photos of a topic when the selectedTopic state changes
+  useEffect(() => {
+    if (state.selectedTopic && state.selectedTopic.id) {
+      fetch(`http://localhost:8001/api/topics/${state.selectedTopic.id}/photos`)
+        .then(res => res.json())
+        .then(data => dispatch({ type: ACTIONS.GET_PHOTOS_BY_TOPICS, payload: data }))
+        .catch(error => console.error('Fetch error:', error));
+    }
+  }, [state.selectedTopic]);
 
   return {
     state,
