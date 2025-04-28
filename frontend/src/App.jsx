@@ -15,8 +15,10 @@ const App = () => {
 
   const { favorites, showModal, selectedPhoto } = state;
 
+  // store all
+  const allPhotos = state.photoData;
   //create an array of photo objects
-  const favoritePhotos = state.photoData.filter((photo) =>
+  const favoritePhotos = allPhotos.filter((photo) =>
     state.favorites.includes(photo.id)
   );
 
