@@ -1,4 +1,4 @@
-import { useReducer, useEffect } from "react";
+import { useReducer, useEffect} from "react";
 import { ACTIONS, reducer } from "./applicationDataReducers";
 
 const useApplicationData = () => {
@@ -9,16 +9,20 @@ const useApplicationData = () => {
     showModal: false,
     photoData: [],
     topicData: [],
-    selectedTopic: null
+    selectedTopic: null,
+    allPhotoData: [],
   };
 
   const [state, dispatch] = useReducer(reducer, initialState);
+   
 
   // fetch photos on initial render
   useEffect(() => {
     fetch('http://localhost:8001/api/photos')
       .then(res => res.json())
-      .then(data => dispatch({type: ACTIONS.SET_PHOTO_DATA, payload: data}))
+      .then(data => {
+        dispatch({ type: ACTIONS.SET_ALL_PHOTO_DATA, payload: data });
+        dispatch({type: ACTIONS.SET_PHOTO_DATA, payload: data});})
       .catch(error => console.error('Fetch error:', error));
   }, []);
 
@@ -39,9 +43,9 @@ const useApplicationData = () => {
     } else {
       // if it is not, add it
       dispatch({ type: ACTIONS.FAV_PHOTO_ADDED, photoId });
+      
     }
   };
-  
   // opening the modal
   const onPhotoSelect = photo => {
     dispatch({ type: ACTIONS.SELECT_PHOTO, payload: photo });
@@ -66,12 +70,15 @@ const useApplicationData = () => {
     }
   }, [state.selectedTopic]);
 
-  const onDisplayFavorites = (favoritePhotos) => {
-    dispatch({ type: ACTIONS.RESET_SELECTED_TOPIC })
+  const onDisplayFavorites = () => {
+    const favoritePhotos = state.allPhotoData.filter(photo =>
+      state.favorites.includes(photo.id)
+    );
+    dispatch({ type: ACTIONS.RESET_SELECTED_TOPIC });
+    dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: favoritePhotos });
+  };
 
-    dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: favoritePhotos});
-  }
-
+  
   return {
     state,
     updateToFavPhotoIds,

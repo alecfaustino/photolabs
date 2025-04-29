@@ -2,17 +2,11 @@ import FavIcon from "./FavIcon";
 
 import "../styles/FavBadge.scss";
 
-const FavBadge = ({
-  isFavPhotoExist,
-  selected,
-  onDisplayFavorites,
-  favoritePhotos,
-}) => {
-  console.log("favoritePhotos in FavBadge", favoritePhotos);
+const FavBadge = ({ isFavPhotoExist, selected, onDisplayFavorites }) => {
+  //create an array of photo objects
+
   return (
-    <div
-      className="fav-badge"
-      onClick={() => onDisplayFavorites(favoritePhotos)}>
+    <div className="fav-badge" onClick={onDisplayFavorites}>
       <FavIcon displayAlert={!!isFavPhotoExist} selected={selected} />
     </div>
   );

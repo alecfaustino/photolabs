@@ -15,20 +15,12 @@ const App = () => {
 
   const { favorites, showModal, selectedPhoto } = state;
 
-  // store all
-  const allPhotos = state.photoData;
-  //create an array of photo objects
-  const favoritePhotos = allPhotos.filter((photo) =>
-    state.favorites.includes(photo.id)
-  );
-
   return (
     <div className="App">
       <HomeRoute
         photos={state.photoData}
         topics={state.topicData}
         favorites={favorites}
-        favoritePhotos={favoritePhotos}
         onPhotoSelect={onPhotoSelect}
         onTopicSelect={onTopicSelect}
         updateToFavPhotoIds={updateToFavPhotoIds}

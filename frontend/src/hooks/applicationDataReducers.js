@@ -11,7 +11,8 @@ export const ACTIONS = {
   // selectedPhoto for the modal
   SELECT_PHOTO: 'SELECT_PHOTO',
   DISPLAY_PHOTO_DETAILS: 'DISPLAY_PHOTO_DETAILS',
-  GET_PHOTOS_BY_TOPICS: 'GET_PHOTOS_BY_TOPICS'
+  GET_PHOTOS_BY_TOPICS: 'GET_PHOTOS_BY_TOPICS',
+  SET_ALL_PHOTO_DATA: 'SET_ALL_PHOTO_DATA'
 }; 
 
 export function reducer(state, action) {
@@ -61,8 +62,13 @@ export function reducer(state, action) {
     case ACTIONS.RESET_SELECTED_TOPIC: 
       return {
         ...state,
-        selectedTopic: null,
+        selectedTopic: action.payload,
       }
+    case ACTIONS.SET_ALL_PHOTO_DATA:
+      return {
+        ...state,
+        allPhotoData: action.payload
+      };
     default:
       throw new Error(
         `Tried to reduce with unsupported action type: ${action.type}`
