@@ -8,6 +8,7 @@ const HomeRoute = ({
   updateToFavPhotoIds,
   onPhotoSelect,
   onTopicSelect,
+  onDisplayFavorites,
 }) => {
   return (
     <div className="home-route">
@@ -17,6 +18,7 @@ const HomeRoute = ({
         favorites={favorites}
         updateToFavPhotoIds={updateToFavPhotoIds}
         onTopicSelect={onTopicSelect}
+        onDisplayFavorites={onDisplayFavorites}
       />
       <PhotoList
         photos={photos}
